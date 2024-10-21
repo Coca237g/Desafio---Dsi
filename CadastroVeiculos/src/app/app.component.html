@@ -8,7 +8,7 @@
         <div class="card-body"> 
           <div class="row">
             <div class="col-12">
-              <table class="table table-striped">
+              <table class="table table-bordered">
                 <thead>
                   <tr>
                     <th>Nome</th>
@@ -33,52 +33,54 @@
           Novo Veículo
         </div>
         <div class="card-body">
-          <div class="row">
-            <div class="col-6">
-              <label for="financiado">Financiado</label>
-              <input type="text" id="financiado" class="form-control">
+          <form [formGroup]="VeiculosForm">
+            <div class="row">
+              <div class="col-12">
+                <label for="financiado">Financiado</label>
+                <input type="text" id="financiado" formControlFinanciado="financiado" class="form-control">
+              </div>
+              <div class="col-6">
+                <label for="id">ID</label>
+                <input type="text" id="id" formControlid="id" class="form-control">
+              </div>
+              <div class="col-6">
+                <label for="updated_at">Updated At</label>
+                <input type="text" id="updated_at" formControlupdated_at="updated_at" class="form-control">
+              </div>
+              <div class="col-6">
+                <label for="created_at">Created At</label>
+                <input type="text" id="created_at" formControlcreated_at="created_at" class="form-control">
+              </div>
+              <div class="col-6">
+                <label for="placa">Placa</label>
+                <input type="text" id="placa" formControlplaca="placa" class="form-control">
+              </div>
+              <div class="col-6">
+                <label for="modelo">Modelo</label>
+                <input type="text" id="modelo" formControlmodelo="modelo" class="form-control">
+              </div>
+              <div class="col-6">
+                <label for="ano">Ano</label>
+                <input type="text" id="ano" formControlano="ano" class="form-control">
+              </div>
+              <div class="col-6">
+                <label for="marca">Marca</label>
+                <input type="text" id="marca" formControlmarca="marca" class="form-control">
+              </div>
+              <div class="col-12">
+                <label for="comentario">Comentário</label>
+                <textarea id="comentario" class="form-control"></textarea>
+              </div>
             </div>
-            <div class="col-6">
-              <label for="id">ID</label>
-              <input type="text" id="id" class="form-control">
+            <div class="row pt-2">
+              <div class="col-6 text-center">
+                <button class="btn btn-secondary">Reset</button>
+              </div>
+              <div class="col-6 text-center">
+                <button class="btn btn-success" (click)="onSave()" >Save</button>
+              </div>
             </div>
-            <div class="col-6">
-              <label for="updated_at">Updated At</label>
-              <input type="text" id="updated_at" class="form-control">
-            </div>
-            <div class="col-6">
-              <label for="created_at">Created At</label>
-              <input type="text" id="created_at" class="form-control">
-            </div>
-            <div class="col-6">
-              <label for="placa">Placa</label>
-              <input type="text" id="placa" class="form-control">
-            </div>
-            <div class="col-6">
-              <label for="modelo">Modelo</label>
-              <input type="text" id="modelo" class="form-control">
-            </div>
-            <div class="col-6">
-              <label for="ano">Ano</label>
-              <input type="text" id="ano" class="form-control">
-            </div>
-            <div class="col-6">
-              <label for="marca">Marca</label>
-              <input type="text" id="marca" class="form-control">
-            </div>
-            <div class="col-6">
-              <label for="comentario">Comentário</label>
-              <textarea id="comentario" class="form-control"></textarea>
-            </div>
-          </div>
-          <div class="row pt-2">
-            <div class="col-6 text-center">
-              <button class="btn btn-secondary">Reset</button>
-            </div>
-            <div class="col-6 text-center">
-              <button class="btn btn-success">Save</button>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
