@@ -2,16 +2,17 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { VeiculoModel } from './model/Veiculos';
+import { ListaOrdensComponent } from "./ordens/lista-ordens/lista-ordens.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ReactiveFormsModule],
+  imports: [RouterOutlet, ReactiveFormsModule, ListaOrdensComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
+  title = 'CadastroVeiculos';
   VeiculosForm: FormGroup = new FormGroup({});
   VeiculosLista: VeiculoModel[] = [];
   VeiculosObj: VeiculoModel = new VeiculoModel();
@@ -21,7 +22,7 @@ export class AppComponent {
     this.loadVeiculosData();
   }
 
-  createForm() { debugger
+  createForm() {
     this.VeiculosForm = new FormGroup({
       id: new FormControl(this.VeiculosObj.id),
       marca: new FormControl(this.VeiculosObj.marca),
@@ -34,27 +35,32 @@ export class AppComponent {
     });
   }
 
-  loadVeiculosData() { debugger
-    if (typeof window !== 'undefined' && localStorage) {  // Verifica se localStorage está disponível
+  loadVeiculosData() {
+    if (typeof window !== 'undefined' && localStorage) {
       const oldData = localStorage.getItem("EmpData");
       if (oldData != null) {
-        const parseData = JSON.parse(oldData);
-        this.VeiculosLista = parseData;
+        try {
+          const parseData = JSON.parse(oldData);
+          this.VeiculosLista = parseData || [];
+        } catch (e) {
+          console.error("Failed to parse localStorage data", e);
+        }
       }
     }
   }
 
-  onSave() { debugger
-    if (typeof window !== 'undefined' && localStorage) {  // Verifica se localStorage está disponível
+  onSave() {
+    if (typeof window !== 'undefined' && localStorage) {
+      let newId = 1;
       const oldData = localStorage.getItem("EmpData");
       if (oldData != null) {
         const parseData = JSON.parse(oldData);
-        this.VeiculosForm.controls['id'].setValue(parseData.length + 1);
-        this.VeiculosLista.unshift(this.VeiculosForm.value);
-      } else {
-        this.VeiculosLista.unshift(this.VeiculosForm.value);
+        newId = parseData.length + 1;
       }
-      // Salvar os dados atualizados no localStorage
+
+      this.VeiculosForm.controls['id'].setValue(newId);
+      this.VeiculosLista.unshift(this.VeiculosForm.value);
+
       localStorage.setItem("EmpData", JSON.stringify(this.VeiculosLista));
     }
   }

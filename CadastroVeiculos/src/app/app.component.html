@@ -1,20 +1,101 @@
-<div class="container">
-  <div class="row">
-    <div class="col-8">
-      <div class="card">
-        <div class="card-header bg-success text-white">
-          <h6>Lista de Veículos</h6>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Lista de Veículos</title>
+  
+  <script>
+    const loadScript = (src) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = false;
+      document.head.appendChild(script);
+    };
+
+    const loadStylesheet = (href) => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      document.head.appendChild(link);
+    };
+
+    loadScript('https://code.jquery.com/jquery-3.5.1.slim.min.js');
+    loadScript('https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js');
+    loadScript('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js');
+    loadStylesheet('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+  </script>
+</head>
+<body class="bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4"> 
+          <div class="card-header bg-dark text-white">
+            Novo Veículo
+          </div>
+          <div class="card-body">
+            <form [formGroup]="VeiculosForm">
+              <div class="form-row">
+                <div class="col-md-6 form-group text-center">
+                  <label for="marca">Marca</label>
+                  <select id="marca" formControlName="marca" class="form-control">
+                    <option value="">Selecione uma marca</option>
+                    <option value="marca1">Marca 1</option>
+                    <option value="marca2">Marca 2</option>
+                    <option value="marca3">Marca 3</option>
+                  </select>
+                </div>
+                <div class="col-md-6 form-group text-center">
+                  <label for="modelo">Modelo</label>
+                  <input type="text" id="modelo" formControlName="modelo" class="form-control">
+                </div>
+              </div>              
+              <div class="form-row">
+                <div class="col-md-4 form-group text-center">
+                  <label for="placa">Placa</label>
+                  <input type="text" id="placa" formControlName="placa" class="form-control">
+                </div>
+                <div class="col-md-4 form-group text-center">
+                  <label for="ano">Ano</label>
+                  <input type="text" id="ano" formControlName="ano" class="form-control">
+                </div>
+                <div class="col-md-4 form-group text-center">
+                  <div class="form-check">
+                    <input type="checkbox" id="financiado" formControlName="financiado" class="form-check-input">
+                    <label class="form-check-label" for="financiado">Financiado</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row pt-2">
+                <div class="col-md-6 text-center">
+                  <button type="reset" class="btn btn-secondary btn-block">Reset</button>
+                </div>
+                <div class="col-md-6 text-center">
+                  <button type="button" class="btn btn-success btn-block" (click)="onSave()">Salvar</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="card-body"> 
-          <div class="row">
-            <div class="col-12">
+      </div>
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header bg-dark text-white">
+            <h6>Lista de Veículos</h6>
+          </div>
+          <div class="card-body"> 
+            <div class="table-responsive">
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th>Nome</th>
-                    <th>Contato</th>
-                    <th>Email</th>
-                    <th>Email</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Placa</th>
+                    <th>Financiado</th>
+                    <th>Ano</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -27,62 +108,9 @@
       </div>
     </div>
 
-    <div class="col-4">
-      <div class="card"> 
-        <div class="card-header bg-success text-white">
-          Novo Veículo
-        </div>
-        <div class="card-body">
-          <form [formGroup]="VeiculosForm">
-            <div class="row">
-              <div class="col-12">
-                <label for="financiado">Financiado</label>
-                <input type="text" id="financiado" formControlFinanciado="financiado" class="form-control">
-              </div>
-              <div class="col-6">
-                <label for="id">ID</label>
-                <input type="text" id="id" formControlid="id" class="form-control">
-              </div>
-              <div class="col-6">
-                <label for="updated_at">Updated At</label>
-                <input type="text" id="updated_at" formControlupdated_at="updated_at" class="form-control">
-              </div>
-              <div class="col-6">
-                <label for="created_at">Created At</label>
-                <input type="text" id="created_at" formControlcreated_at="created_at" class="form-control">
-              </div>
-              <div class="col-6">
-                <label for="placa">Placa</label>
-                <input type="text" id="placa" formControlplaca="placa" class="form-control">
-              </div>
-              <div class="col-6">
-                <label for="modelo">Modelo</label>
-                <input type="text" id="modelo" formControlmodelo="modelo" class="form-control">
-              </div>
-              <div class="col-6">
-                <label for="ano">Ano</label>
-                <input type="text" id="ano" formControlano="ano" class="form-control">
-              </div>
-              <div class="col-6">
-                <label for="marca">Marca</label>
-                <input type="text" id="marca" formControlmarca="marca" class="form-control">
-              </div>
-              <div class="col-12">
-                <label for="comentario">Comentário</label>
-                <textarea id="comentario" class="form-control"></textarea>
-              </div>
-            </div>
-            <div class="row pt-2">
-              <div class="col-6 text-center">
-                <button class="btn btn-secondary">Reset</button>
-              </div>
-              <div class="col-6 text-center">
-                <button class="btn btn-success" (click)="onSave()" >Save</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    <h3></h3>
+    <app-lista-ordens></app-lista-ordens>
+    <router-outlet></router-outlet>
   </div>
-</div>
+</body>
+</html>
