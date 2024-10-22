@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
   <title>Lista de Veículos</title>
-  
   <script>
     const loadScript = (src) => {
       const script = document.createElement('script');
@@ -27,11 +25,11 @@
     loadStylesheet('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
   </script>
 </head>
-<body class="bg-light">
+<body class="bg-dark text-black">
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <div class="card mb-4"> 
+        <div class="card mb-4">
           <div class="card-header bg-dark text-white">
             Novo Veículo
           </div>
@@ -39,7 +37,7 @@
             <form [formGroup]="VeiculosForm">
               <div class="form-row">
                 <div class="col-md-6 form-group text-center">
-                  <label for="marca">Marca</label>
+                  <label for="marca" class="text-black">Marca</label>
                   <select id="marca" formControlName="marca" class="form-control">
                     <option value="">Selecione uma marca</option>
                     <option value="marca1">Marca 1</option>
@@ -48,23 +46,23 @@
                   </select>
                 </div>
                 <div class="col-md-6 form-group text-center">
-                  <label for="modelo">Modelo</label>
+                  <label for="modelo" class="text-black">Modelo</label>
                   <input type="text" id="modelo" formControlName="modelo" class="form-control">
                 </div>
-              </div>              
+              </div>
               <div class="form-row">
                 <div class="col-md-4 form-group text-center">
-                  <label for="placa">Placa</label>
+                  <label for="placa" class="text-black">Placa</label>
                   <input type="text" id="placa" formControlName="placa" class="form-control">
                 </div>
                 <div class="col-md-4 form-group text-center">
-                  <label for="ano">Ano</label>
+                  <label for="ano" class="text-black">Ano</label>
                   <input type="text" id="ano" formControlName="ano" class="form-control">
                 </div>
                 <div class="col-md-4 form-group text-center">
                   <div class="form-check">
                     <input type="checkbox" id="financiado" formControlName="financiado" class="form-check-input">
-                    <label class="form-check-label" for="financiado">Financiado</label>
+                    <label class="form-check-label text-black" for="financiado">Financiado</label>
                   </div>
                 </div>
               </div>
@@ -86,9 +84,9 @@
           <div class="card-header bg-dark text-white">
             <h6>Lista de Veículos</h6>
           </div>
-          <div class="card-body"> 
+          <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered">
+              <table class="table table-bordered table-dark">
                 <thead>
                   <tr>
                     <th>Marca</th>
@@ -107,10 +105,10 @@
         </div>
       </div>
     </div>
-
-    <h3></h3>
-    <app-lista-ordens></app-lista-ordens>
-    <router-outlet></router-outlet>
   </div>
+
+  <h3></h3>
+  <app-lista-ordens></app-lista-ordens>
+  <router-outlet></router-outlet>
 </body>
 </html>
