@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListaOrdensComponent } from "../ordens/lista-ordens/lista-ordens.component";
+
 
 const routes: Routes = [
-  { path: 'ordens', component: ListaOrdensComponent },
-  { path: 'veiculos', loadChildren: () => import('../veiculos/veiculos.module').then(m => m.VeiculosModule) } // Ensure lowercase 'veiculos'
+  { path: 'veiculos', loadChildren: () => import('../veiculos/veiculos.module').then(m => m.VeiculosModule) } // Virar sempre 'veiculos' ( Adicionar outra aba )
 ];
 
 @NgModule({
@@ -12,3 +11,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
+
+// Talvez apague este arquivo, pode ser uma Redundância ( ou é coisa do Angular mesmo )

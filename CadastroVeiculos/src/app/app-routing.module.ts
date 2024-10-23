@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ListaOrdensComponent } from "./ordens/lista-ordens/lista-ordens.component"; // Import the component
-
 export const routes: Routes = [
-  { path: 'ordens', component: ListaOrdensComponent },
-  { path: 'Veiculos', loadChildren: () => import('./veiculos/veiculos.module').then(m => m.VeiculosModule) },  // 'ordens' path
+  { path: 'veiculos', loadChildren: () => import('./veiculos/veiculos.module').then(m => m.VeiculosModule) } // Virar sempre 'veiculos' ( Adicionar outra aba )
 ];
 
 @NgModule({

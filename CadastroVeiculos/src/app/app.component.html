@@ -12,7 +12,7 @@
       document.head.appendChild(script);
     };
 
-    const loadStylesheet = (href) => {
+    const loadStyle = (href) => {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = href;
@@ -22,8 +22,9 @@
     loadScript('https://code.jquery.com/jquery-3.5.1.slim.min.js');
     loadScript('https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js');
     loadScript('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js');
-    loadStylesheet('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+    loadStyle('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
   </script>
+
 </head>
 <body class="bg-dark text-black">
   <div class="container">
@@ -42,7 +43,7 @@
                     <option value="">Selecione uma marca</option>
                     <option value="marca1">Marca 1</option>
                     <option value="marca2">Marca 2</option>
-                    <option value="marca3">Marca 3</option>
+                    <option value="marca3">Marca 3</option> <!-- Tirar isso pra puxar da API -->
                   </select>
                 </div>
                 <div class="col-md-6 form-group text-center">
@@ -62,7 +63,7 @@
                 <div class="col-md-4 form-group text-center">
                   <div class="form-check">
                     <input type="checkbox" id="financiado" formControlName="financiado" class="form-check-input">
-                    <label class="form-check-label text-black" for="financiado">Financiado</label>
+                    <label class="form-check-label text-black" for="financiado">Financiado</label> <!-- Arrumar para ficar centralizado com as outras Labels -->
                   </div>
                 </div>
               </div>
@@ -71,7 +72,7 @@
                   <button type="reset" class="btn btn-secondary btn-block">Reset</button>
                 </div>
                 <div class="col-md-6 text-center">
-                  <button type="button" class="btn btn-success btn-block" (click)="onSave()">Salvar</button>
+                  <button type="button" class="btn btn-success btn-block" (click)="onSave()">Salvar</button> <!-- Arrumnar para não ficar grudado quando for em tela de telefone -->
                 </div>
               </div>
             </form>
@@ -97,7 +98,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- Conteúdo da tabela -->
+                  <!-- Conteúdo da tabela vai aqui -->
                 </tbody>
               </table>
             </div>
@@ -106,9 +107,5 @@
       </div>
     </div>
   </div>
-
-  <h3></h3>
-  <app-lista-ordens></app-lista-ordens>
-  <router-outlet></router-outlet>
 </body>
 </html>
