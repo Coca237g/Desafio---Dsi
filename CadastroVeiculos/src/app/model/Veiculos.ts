@@ -1,22 +1,22 @@
-export class VeiculoModel { 
-    id: Number;
-    marca: String;
-    modelo: String;
-    ano: String;
-    placa: String;
-    financiado: String;
-    created_at: String;
-    updated_at: String;
-
+export class Veiculo {
+    id: number;
+    marca: string;
+    modelo: string;
+    ano: string;
+    placa: string;
+    financiado: boolean;
+    created_at?: string;
+    updated_at?: string;
+  
     constructor() {
-        this.id = 0;
-        this.financiado = '';
-        this.updated_at = '';
-        this.created_at = '';
-        this.placa = '';
-        this.modelo = '';
-        this.marca = '';
-        this.ano = '';
-        
+      this.id = 0;
+      this.marca = '';
+      this.modelo = '';
+      this.placa = '';
+      this.ano = '';
+      this.financiado = false;
+      this.created_at = '';
+      this.updated_at = '';
     }
-}
+  }
+  

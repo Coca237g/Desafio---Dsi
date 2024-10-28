@@ -1,10 +1,20 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { VeiculosModule } from './veiculos/veiculos.module';
 
 @NgModule({
-  imports: [BrowserModule, ReactiveFormsModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    VeiculosModule,
+  ],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
+
+bootstrapApplication(AppComponent).catch(err => console.error(err));

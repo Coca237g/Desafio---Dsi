@@ -1,67 +1,72 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { VeiculoModel } from './model/Veiculos';
-
+import { Veiculo } from './model/Veiculos';
+import { CommonModule } from '@angular/common';
+import { VeiculosService } from './veiculos.service';
+import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ReactiveFormsModule],
+  imports: [RouterOutlet, ReactiveFormsModule, CommonModule, HttpClientModule], // Add HttpClientModule here
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [VeiculosService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'CadastroVeiculos';
-  VeiculosForm: FormGroup = new FormGroup({});
-  VeiculosLista: VeiculoModel[] = [];
-  VeiculosObj: VeiculoModel = new VeiculoModel();
+  veiculosForm!: FormGroup; 
+  veiculosLista: Veiculo[] = []; 
+  veiculosObj: Veiculo = new Veiculo();
 
-  constructor() {
+  marcas = [
+    { id: 1, nome: 'Toyota' },
+    { id: 2, nome: 'Ford' },
+    { id: 3, nome: 'Honda' }
+  ];
+
+  constructor(private veiculosService: VeiculosService) {
     this.createForm();
+  }
+
+  ngOnInit() {
     this.loadVeiculosData();
   }
 
   createForm() {
-    this.VeiculosForm = new FormGroup({
-      id: new FormControl(this.VeiculosObj.id),
-      marca: new FormControl(this.VeiculosObj.marca),
-      ano: new FormControl(this.VeiculosObj.ano),
-      created_at: new FormControl(this.VeiculosObj.created_at),
-      updated_at: new FormControl(this.VeiculosObj.updated_at),
-      financiado: new FormControl(this.VeiculosObj.financiado),
-      modelo: new FormControl(this.VeiculosObj.modelo),
-      placa: new FormControl(this.VeiculosObj.placa)
+    this.veiculosForm = new FormGroup({
+      id: new FormControl(this.veiculosObj.id),
+      marca: new FormControl(this.veiculosObj.marca),
+      ano: new FormControl(this.veiculosObj.ano),
+      created_at: new FormControl(this.veiculosObj.created_at),
+      updated_at: new FormControl(this.veiculosObj.updated_at),
+      financiado: new FormControl(this.veiculosObj.financiado),
+      modelo: new FormControl(this.veiculosObj.modelo),
+      placa: new FormControl(this.veiculosObj.placa)
     });
   }
 
-  loadVeiculosData() {
-    if (typeof window !== 'undefined' && localStorage) {
-      const oldData = localStorage.getItem("EmpData");
-      if (oldData != null) {
-        try {
-          const parseData = JSON.parse(oldData);
-          this.VeiculosLista = parseData || [];
-        } catch (e) {
-          console.error("Failed to parse localStorage data", e);
-        }
-      }
+loadVeiculosData() {
+  this.veiculosService.getVeiculos().subscribe({
+    next: (data) => {
+      // console.log('Dados recebidos:', data); // Ativar para receber o Log de dados da API 
+      this.veiculosLista = data;
+    },
+    error: (err) => {
+      console.error('Erro ao carregar dados da API', err);
     }
-  }
+  });
+}
+
 
   onSave() {
+    let newId = this.veiculosLista.length > 0 ? this.veiculosLista.length + 1 : 1;
+    this.veiculosForm.controls['id'].setValue(newId);
+    this.veiculosLista.unshift(this.veiculosForm.value);
+
     if (typeof window !== 'undefined' && localStorage) {
-      let newId = 1;
-      const oldData = localStorage.getItem("EmpData");
-      if (oldData != null) {
-        const parseData = JSON.parse(oldData);
-        newId = parseData.length + 1;
-      }
-
-      this.VeiculosForm.controls['id'].setValue(newId);
-      this.VeiculosLista.unshift(this.VeiculosForm.value);
-
-      localStorage.setItem("EmpData", JSON.stringify(this.VeiculosLista));
+      localStorage.setItem("EmpData", JSON.stringify(this.veiculosLista));
     }
   }
 }

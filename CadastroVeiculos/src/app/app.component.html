@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de Veículos</title>
+  
   <script>
     const loadScript = (src) => {
       const script = document.createElement('script');
@@ -31,48 +32,46 @@
     <div class="row">
       <div class="col-12">
         <div class="card mb-4">
-          <div class="card-header bg-dark text-white">
-            Novo Veículo
+          <div class="card-header bg-dark text-white text-center">
+            <h5>Novo Veículo</h5>
           </div>
           <div class="card-body">
-            <form [formGroup]="VeiculosForm">
+            <form [formGroup]="veiculosForm">
               <div class="form-row">
-                <div class="col-md-6 form-group text-center">
+                <div class="col-md-6 form-group">
                   <label for="marca" class="text-black">Marca</label>
                   <select id="marca" formControlName="marca" class="form-control">
                     <option value="">Selecione uma marca</option>
-                    <option value="marca1">Marca 1</option>
-                    <option value="marca2">Marca 2</option>
-                    <option value="marca3">Marca 3</option> <!-- Tirar isso pra puxar da API -->
+                    <option *ngFor="let marca of marcas" [value]="marca.id">{{ marca.nome }}</option>
                   </select>
                 </div>
-                <div class="col-md-6 form-group text-center">
+                <div class="col-md-6 form-group">
                   <label for="modelo" class="text-black">Modelo</label>
                   <input type="text" id="modelo" formControlName="modelo" class="form-control">
                 </div>
               </div>
               <div class="form-row">
-                <div class="col-md-4 form-group text-center">
+                <div class="col-md-4 form-group">
                   <label for="placa" class="text-black">Placa</label>
                   <input type="text" id="placa" formControlName="placa" class="form-control">
                 </div>
-                <div class="col-md-4 form-group text-center">
+                <div class="col-md-4 form-group">
                   <label for="ano" class="text-black">Ano</label>
                   <input type="text" id="ano" formControlName="ano" class="form-control">
                 </div>
-                <div class="col-md-4 form-group text-center">
+                <div class="col-md-4 form-group d-flex align-items-center justify-content-center">
                   <div class="form-check">
                     <input type="checkbox" id="financiado" formControlName="financiado" class="form-check-input">
-                    <label class="form-check-label text-black" for="financiado">Financiado</label> <!-- Arrumar para ficar centralizado com as outras Labels -->
+                    <label class="form-check-label text-black" for="financiado">Financiado</label>
                   </div>
                 </div>
               </div>
               <div class="form-row pt-2">
-                <div class="col-md-6 text-center">
+                <div class="col-md-6 text-center mb-2">
                   <button type="reset" class="btn btn-secondary btn-block">Reset</button>
                 </div>
-                <div class="col-md-6 text-center">
-                  <button type="button" class="btn btn-success btn-block" (click)="onSave()">Salvar</button> <!-- Arrumnar para não ficar grudado quando for em tela de telefone -->
+                <div class="col-md-6 text-center mb-2">
+                  <button type="button" class="btn btn-success btn-block" (click)="onSave()">Salvar</button>
                 </div>
               </div>
             </form>
@@ -82,13 +81,13 @@
 
       <div class="col-12">
         <div class="card">
-          <div class="card-header bg-dark text-white">
-            <h6>Lista de Veículos</h6>
+          <div class="card-header bg-dark text-white text-center">
+            <h5>Lista de Veículos</h5>
           </div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered table-dark">
-                <thead>
+                <thead class="thead-light">
                   <tr>
                     <th>Marca</th>
                     <th>Modelo</th>
@@ -98,8 +97,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- Conteúdo da tabela vai aqui -->
-                </tbody>
+                  <tr *ngFor="let veiculo of veiculosLista">
+                    <td>{{ veiculo.marca }}</td>
+                    <td>{{ veiculo.modelo }}</td>
+                    <td>{{ veiculo.placa }}</td>
+                    <td>{{ veiculo.financiado ? 'Sim' : 'Não' }}</td>
+                    <td>{{ veiculo.ano }}</td>
+                  </tr>
+                </tbody>                
               </table>
             </div>
           </div>
