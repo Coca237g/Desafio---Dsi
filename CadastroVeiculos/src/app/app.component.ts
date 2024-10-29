@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Veiculo } from './model/Veiculos';
 import { CommonModule } from '@angular/common';
 import { VeiculosService } from './veiculos.service';
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ReactiveFormsModule, CommonModule, HttpClientModule], // Add HttpClientModule here
+  imports: [RouterOutlet, ReactiveFormsModule, FormsModule, CommonModule, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   providers: [VeiculosService]
@@ -47,26 +47,72 @@ export class AppComponent implements OnInit {
     });
   }
 
-loadVeiculosData() {
-  this.veiculosService.getVeiculos().subscribe({
-    next: (data) => {
-      // console.log('Dados recebidos:', data); // Ativar para receber o Log de dados da API 
-      this.veiculosLista = data;
-    },
-    error: (err) => {
-      console.error('Erro ao carregar dados da API', err);
-    }
-  });
-}
-
+  loadVeiculosData() {
+    this.veiculosService.getVeiculos().subscribe({
+      next: (data) => {
+        this.veiculosLista = data.map(veiculo => ({ ...veiculo, selected: false }));
+      },
+      error: (err) => {
+        console.error('Erro ao carregar dados da API', err);
+      }
+    });
+  }
 
   onSave() {
-    let newId = this.veiculosLista.length > 0 ? this.veiculosLista.length + 1 : 1;
-    this.veiculosForm.controls['id'].setValue(newId);
-    this.veiculosLista.unshift(this.veiculosForm.value);
+    if (this.veiculosForm.valid) {
+      const newVeiculo: Veiculo = this.veiculosForm.value;
 
-    if (typeof window !== 'undefined' && localStorage) {
-      localStorage.setItem("EmpData", JSON.stringify(this.veiculosLista));
+      this.veiculosService.createVeiculo(newVeiculo).subscribe({
+        next: (response) => {
+          this.veiculosLista.unshift(response);
+          alert('Veículo salvo com sucesso.');
+        },
+        error: (error) => {
+          console.error('Erro ao salvar o veículo:', error);
+          alert('Erro ao salvar o veículo. Tente novamente.');
+        }
+      });
+
+      this.veiculosForm.reset();
+    } else {
+      alert('Por favor, preencha todos os campos obrigatórios!');
     }
+  }
+
+  deleteVeiculo(id: number) {
+    if (confirm("Deseja realmente excluir este veículo?")) {
+      this.veiculosService.deleteVeiculo(id).subscribe({
+        next: () => {
+          this.veiculosLista = this.veiculosLista.filter(veiculo => veiculo.id !== id);
+          alert('Veículo excluído com sucesso.');
+        },
+        error: (error) => console.error('Erro ao excluir o veículo:', error)
+      });
+    }
+  }
+
+  deleteSelected() {
+    const selectedIds = this.veiculosLista
+      .filter(veiculo => veiculo.selected)
+      .map(veiculo => veiculo.id);
+
+    if (selectedIds.length > 0 && confirm("Deseja realmente excluir os veículos selecionados?")) {
+      selectedIds.forEach(id => {
+        this.veiculosService.deleteVeiculo(id).subscribe({
+          next: () => {
+            this.veiculosLista = this.veiculosLista.filter(veiculo => veiculo.id !== id);
+          },
+          error: (error) => console.error('Erro ao excluir o veículo:', error)
+        });
+      });
+      alert('Veículos selecionados excluídos com sucesso.');
+    } else {
+      alert('Nenhum veículo selecionado para exclusão.');
+    }
+  }
+
+  toggleSelectAll(event: any) {
+    const checked = event.target.checked;
+    this.veiculosLista.forEach(veiculo => veiculo.selected = checked);
   }
 }

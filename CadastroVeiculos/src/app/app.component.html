@@ -6,7 +6,7 @@
   <title>Lista de Veículos</title>
   
   <script>
-    const loadScript = (src) => {
+    const loadScript = (src) => { // Coloquei assim para ficar mais "Organizado" os Links
       const script = document.createElement('script');
       script.src = src;
       script.async = false;
@@ -24,6 +24,27 @@
     loadScript('https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js');
     loadScript('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js');
     loadStyle('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip(); // Jquery inicializa os tooltips para o Html ( Está sendo usado para o Hover no Checkbox do Forms)
+    });
+
+
+    function showModal(message) {
+      document.getElementById('modalMessage').innerText = message;
+      $('#feedbackModal').modal('show');
+    }
+    
+    function onSave() {
+      // Lógica para salvar veículo
+      showModal('Veículo salvo com sucesso!');
+    }
+
+    function deleteSelected() {
+      // Lógica para excluir veículos selecionados
+      showModal('Veículos excluídos com sucesso!');
+    }
+
   </script>
 
 </head>
@@ -42,8 +63,8 @@
                   <label for="marca" class="text-black">Marca</label>
                   <select id="marca" formControlName="marca" class="form-control">
                     <option value="">Selecione uma marca</option>
-                    <option *ngFor="let marca of marcas" [value]="marca.id">{{ marca.nome }}</option>
-                  </select>
+                    <option *ngFor="let marca of marcas" [value]="marca.nome">{{ marca.nome }}</option>
+                  </select>                  
                 </div>
                 <div class="col-md-6 form-group">
                   <label for="modelo" class="text-black">Modelo</label>
@@ -68,17 +89,16 @@
               </div>
               <div class="form-row pt-2">
                 <div class="col-md-6 text-center mb-2">
-                  <button type="reset" class="btn btn-secondary btn-block">Reset</button>
+                  <button type="button" class="btn btn-secondary btn-block">Voltar</button>
                 </div>
                 <div class="col-md-6 text-center mb-2">
-                  <button type="button" class="btn btn-success btn-block" (click)="onSave()">Salvar</button>
+                  <button type="button" class="btn btn-success btn-block" (click)="onSave()" [disabled]="!veiculosForm.valid">Salvar</button>
                 </div>
               </div>
             </form>
           </div>
         </div>
       </div>
-
       <div class="col-12">
         <div class="card">
           <div class="card-header bg-dark text-white text-center">
@@ -86,26 +106,40 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered table-dark">
-                <thead class="thead-light">
+              <table class="table table-bordered table-striped table-hover">
+                <thead>
                   <tr>
                     <th>Marca</th>
+                    <th>Ano</th>
                     <th>Modelo</th>
                     <th>Placa</th>
                     <th>Financiado</th>
-                    <th>Ano</th>
+                    <th style="width: 50px;">
+                      <label style="display: flex;">
+                        <input type="checkbox" (change)="toggleSelectAll($event)" style="transform: scale(1.4);" data-toggle="tooltip" title="Selecionar Todos">
+                      </label>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let veiculo of veiculosLista">
                     <td>{{ veiculo.marca }}</td>
+                    <td>{{ veiculo.ano }}</td>
                     <td>{{ veiculo.modelo }}</td>
                     <td>{{ veiculo.placa }}</td>
                     <td>{{ veiculo.financiado ? 'Sim' : 'Não' }}</td>
-                    <td>{{ veiculo.ano }}</td>
+                    <td style="width: 50px;">
+                      <label>
+                        <input type="checkbox" [(ngModel)]="veiculo.selected" style="transform: scale(1.4);" data-toggle="tooltip" title="Selecionar">
+                      </label>
+                    </td>
                   </tr>
-                </tbody>                
+                </tbody>
               </table>
+            </div> 
+            <!-- Falta Adicionar o campo de Edição -->
+            <div class="text-center mt-3">
+              <button type="button" class="btn btn-danger" (click)="deleteSelected()">Excluir Selecionados</button>
             </div>
           </div>
         </div>

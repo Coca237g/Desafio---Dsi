@@ -9,13 +9,13 @@ import { Veiculo } from './model/Veiculos';
 export class VeiculosService {
   private apiUrl = 'https://servidor02.dsigestao.com/desafio-dsi/api/veiculos';
 
-  constructor(private http: HttpClient) {}
-
-  httpOptions = {
+  private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   };
+
+  constructor(private http: HttpClient) {}
 
   getVeiculos(): Observable<Veiculo[]> {
     return this.http.get<Veiculo[]>(this.apiUrl);

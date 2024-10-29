@@ -7,6 +7,7 @@ export class Veiculo {
     financiado: boolean;
     created_at?: string;
     updated_at?: string;
+    selected?: boolean;
   
     constructor() {
       this.id = 0;
