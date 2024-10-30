@@ -1,27 +1,15 @@
-# CadastroVeiculos
+Este é um Arquivo README com algumas informações sobre o projeto.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.8.
+Versões utilizadas:
+- Angular/cli: 18.2.10
+- Bootstrap: 5.3.3
+- Node: 20.18.0
+- Npm: 10.9.0
+- Typescript: 5.5.2
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Inspirações e exemplos: 
+- https://github.com/gothinkster/angular-realworld-example-app?tab=readme-ov-file;
+- https://www.youtube.com/watch?v=I5i1GonlfFM&list=PLp50dWW_m40V_yYmHHmTHG3aITZFHnYBT;
+- https://github.com/twbs;
+- https://angular.dev/overview;
+- https://stackoverflow.com;
