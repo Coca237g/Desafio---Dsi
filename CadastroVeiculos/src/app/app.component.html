@@ -6,7 +6,7 @@
   <title>Lista de Veículos</title>
   
   <script>
-    const loadScript = (src) => { // Coloquei assim para ficar mais "Organizado" os Links
+    const loadScript = (src) => { 
       const script = document.createElement('script');
       script.src = src;
       script.async = false;
@@ -26,27 +26,28 @@
     loadStyle('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
 
     $(function () {
-      $('[data-toggle="tooltip"]').tooltip(); // Jquery inicializa os tooltips para o Html ( Está sendo usado para o Hover no Checkbox do Forms)
+      $('[data-toggle="tooltip"]').tooltip();
     });
-
 
     function showModal(message) {
       document.getElementById('modalMessage').innerText = message;
       $('#feedbackModal').modal('show');
     }
-    
+
     function onSave() {
-      // Lógica para salvar veículo
       showModal('Veículo salvo com sucesso!');
     }
 
     function deleteSelected() {
-      // Lógica para excluir veículos selecionados
       showModal('Veículos excluídos com sucesso!');
     }
 
-  </script>
+    function editSelected() {
+      // Lógica para editar o veículo selecionado
+      showModal('Editar função chamada para o veículo selecionado.');
+    }
 
+  </script>
 </head>
 <body class="bg-dark text-black">
   <div class="container">
@@ -137,8 +138,8 @@
                 </tbody>
               </table>
             </div> 
-            <!-- Falta Adicionar o campo de Edição -->
             <div class="text-center mt-3">
+              <button type="button" class="btn btn-primary mr-2" (click)="editSelected()">Editar Selecionado</button>
               <button type="button" class="btn btn-danger" (click)="deleteSelected()">Excluir Selecionados</button>
             </div>
           </div>
